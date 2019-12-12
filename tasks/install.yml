@@ -1,0 +1,32 @@
+---
+
+- name: copy elasticsearch script
+  template:
+     src: "elasticsearch"
+     dest: /usr/local/bin/elasticsearch
+     mode: 0755
+     owner: root
+     group: root
+
+- name: copy elasticsearch script
+  template:
+     src: "elasticsearch.service"
+     dest: /etc/systemd/system/elasticsearch.service
+     mode: 0644
+     owner: root
+     group: root
+
+- name: restart elasticsearch
+  service:
+     name: elasticsearch
+     state: restarted
+     enabled: true
+
+- name: wait for elasticsearch to become ready
+  wait_for:
+     host: "0.0.0.0"
+     port: "{{ es_port }}"
+     state: started
+     delay: 5
+     connect_timeout: 15
+     timeout: 300

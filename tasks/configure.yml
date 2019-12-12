@@ -1,0 +1,36 @@
+---
+- name: create elasticsearch dirs
+  file:
+    path: "{{ item|safe|trim }}"
+    state: directory
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: 0777
+    recurse: true
+  changed_when: false
+  with_items:
+    - "{{ es_opt_dir }}"
+    - "{{ es_config_dir }}"
+    - "{{ es_tmp_dir }}"
+    - "{{ es_data_dir }}"
+
+- name: create elasticsearch configuration file
+  template:
+    dest: "{{ es_config_dir }}/{{ item | basename }}"
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: 0644
+    force: true
+    src: "{{ item }}"
+  with_items:
+    - elasticsearch.yml
+    - log4j2.properties
+    - analysis/stopword.txt
+    - analysis/synonym.txt
+
+- name: set vm.max_map_count to 262144 in sysctl
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { key: "vm.max_map_count", value: "262144" }

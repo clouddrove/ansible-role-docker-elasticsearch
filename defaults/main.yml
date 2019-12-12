@@ -1,0 +1,29 @@
+---
+# version
+es_version: "6.7.2"
+
+# memory settings
+es_xmx: "{{ ( ansible_memtotal_mb * 0.30 ) | round(0, 'ceil') | int }}"
+
+# user settings
+es_user: elastic
+es_group: elastic
+# data mounting
+mount_path: /data
+
+# elasticearch settings
+es_opt_dir: "/opt/elasticsearch"
+es_config_dir: "{{ es_opt_dir }}/config"
+es_tmp_dir: "{{ mount_path }}/tmp/elasticsearch"
+es_data_dir: "{{ mount_path }}/elasticsearch"
+es_log_dir: "/var/log/elasticsearch"
+
+# elasticsearch network settings
+es_port: 9200
+es_publish_port: 9300
+es_host: "0.0.0.0"
+es_publish_host: "{{ es_host }}"
+es_bind_host: "{{ es_host }}"
+
+# elasticsearch node settings
+es_node_name: "{{ hostvars[inventory_hostname].EcName | safe | trim }}"

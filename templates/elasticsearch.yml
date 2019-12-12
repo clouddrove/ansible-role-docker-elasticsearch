@@ -1,0 +1,46 @@
+---
+## {{ ansible_managed }}
+
+node.name: "{{ es_node_name|safe|trim }}"
+
+#################################### Paths ####################################
+bootstrap.memory_lock: true
+
+# Set the bind address specifically (IPv4 or IPv6):
+
+network.bind_host: "{{ es_bind_host }}"
+
+# Set the address other nodes will use to communicate with this node. If not
+# set, it is automatically derived. It must point to an actual IP address.
+network.publish_host: "{{ es_publish_host }}"
+
+# Set a custom port for the node to node communication (9300 by default):
+transport.tcp.port: "{{ es_publish_port|int }}"
+
+# Path to directory where to store index data allocated for this node.
+path.data: /usr/share/elasticsearch/data
+# Enable compression for all communication between nodes (disabled by default):
+#
+transport.tcp.compress: true
+
+# Set a custom port to listen for HTTP traffic:
+#
+http.port: "{{ es_port|int }}"
+
+# Set a custom allowed content length:
+#
+http.max_content_length: 500mb
+
+# Disable HTTP completely:
+#
+http.enabled: true
+
+xpack.security.enabled: false
+xpack.monitoring.enabled: false
+
+
+## Threadpool Settings ##
+thread_pool.index.queue_size: 100000
+thread_pool.bulk.queue_size: 500
+thread_pool.search.queue_size: 100000
+thread_pool.listener.queue_size: 1000

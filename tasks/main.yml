@@ -1,0 +1,23 @@
+---
+- name: configuration data
+  become: "{{ ansible_user_id }}"
+  local_action: |
+    command echo "
+    env                         ==>  {{ Env }}
+    node.name                   ==>  {{ es_node_name }}
+    "
+  register: config_out
+  changed_when: false
+
+- name: print config
+  debug: var=config_out.stdout_lines
+  when: config_out is defined
+
+- name: users elasticsearch
+  import_tasks: users.yml
+
+- name: configure elasticsearch
+  import_tasks: configure.yml
+
+- name: install docker elasticsearch
+  import_tasks: install.yml

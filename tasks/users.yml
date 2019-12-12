@@ -1,0 +1,12 @@
+---
+- name: setup group
+  group:
+    name: "{{ es_group }}"
+    system: true
+
+
+- name: setup user
+  user:
+    name: "{{ es_user }}"
+    system: true
+    group: "{{ es_group }}"

@@ -1,0 +1,83 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: Ansible Role Docker Elasticsearch
+
+# License of this project
+license: "MIT"
+
+# Canonical GitHub repo
+github_repo: clouddrove/ansible-role-docker-elasticsearch
+
+# Badges to display
+badges:
+  - name: "Ansible"
+    image: "https://img.shields.io/badge/Ansible-2.8-green?style=flat&logo=ansible"
+    url: "https://www.ansible.com"
+  - name: "Licence"
+    image: "https://img.shields.io/badge/License-MIT-blue.svg"
+    url: "LICENSE.md"
+  - name: "Distribution"
+    image: "https://img.shields.io/badge/ubuntu-16.x-orange?style=flat&logo=ubuntu"
+    url: "https://ubuntu.com/"
+  - name: "Distribution"
+    image: "https://img.shields.io/badge/ubuntu-18.x-orange?style=flat&logo=ubuntu"
+    url: "https://ubuntu.com/"
+  - name: "Distribution"
+    image: "https://img.shields.io/badge/centos-7.x-orange"
+    url: "https://www.centos.org/"
+# Prerequesties to display
+# yamllint disable
+prerequesties:
+  - name: "Ansible2.8"
+    url: "https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html"
+  - name: "Python"
+    url: "https://www.python.org/downloads"
+  - name: "Docker"
+    url: "https://docs.docker.com/install/linux/docker-ce/ubuntu"
+# yamllint enable
+# What Includes to display
+what_includes:
+  - name: "Elasticsearch"
+
+#  description of this project
+description: |-
+  This ansible role is used to install Elasticsearch Server with docker on linux.
+
+# How to use this project
+usage: |-
+  ```yaml
+  - hosts: localhost
+    remote_user: root
+    roles:
+      - clouddrove.ansible_role_docker_elasticsearch
+  ```
+# Variables use in the project
+variables: |-
+  ```yaml
+      es_version: "6.7.2"
+      es_xmx: "{{ ( ansible_memtotal_mb * 0.20 ) | round(0, 'ceil') | int }}"
+      es_user: elastic
+      es_group: elastic
+      mount_path: /data
+      es_opt_dir: "/opt/elasticsearch"
+      es_config_dir: "{{ es_opt_dir }}/config"
+      es_tmp_dir: "{{ mount_path }}/tmp/elasticsearch"
+      es_data_dir: "{{ mount_path }}/elasticsearch"
+      es_log_dir: "/var/log/elasticsearch"
+      es_port: 9200
+      es_publish_port: 9300
+      es_host: "0.0.0.0"
+      es_publish_host: "{{ es_host }}"
+      es_bind_host: "{{ es_host }}"
+      es_node_name: "{{ hostvars[inventory_hostname].EcName | safe | trim }}"
+  ```
+# How to install project
+installation: |-
+  ```console
+    $ ansible-galaxy install clouddrove.ansible_role_docker_elasticsearch
+  ```

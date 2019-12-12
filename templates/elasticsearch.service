@@ -1,0 +1,9 @@
+[Unit]
+Description=Elasticsearch Server
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStart=/usr/local/bin/elasticsearch
+[Install]
+WantedBy=multi-user.target
