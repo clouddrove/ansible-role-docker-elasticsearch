@@ -1,7 +1,7 @@
 ---
 - name: configuration data
   become: "{{ ansible_user_id }}"
-  local_action: |
+  delegate_to: |
     command echo "
     env                         ==>  {{ Env }}
     node.name                   ==>  {{ es_node_name }}
