@@ -33,14 +33,14 @@ http.max_content_length: 500mb
 
 # Disable HTTP completely:
 #
-http.enabled: true
+#http.enabled: true
 
 xpack.security.enabled: false
 xpack.monitoring.enabled: false
 
 
 ## Threadpool Settings ##
-thread_pool.index.queue_size: 100000
-thread_pool.bulk.queue_size: 500
-thread_pool.search.queue_size: 100000
-thread_pool.listener.queue_size: 1000
+# thread_pool.index.queue_size: 100000
+# thread_pool.bulk.queue_size: 500
+# thread_pool.search.queue_size: 100000
+# thread_pool.listener.queue_size: 1000

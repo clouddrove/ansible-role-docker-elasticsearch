@@ -5,17 +5,14 @@ docker pull docker.elastic.co/elasticsearch/elasticsearch:"{{ es_version }}"
 docker rm -f -v elasticsearch || :
 
 docker run -u  root  --rm --name=elasticsearch \
-         --privileged  --cap-add=ALL \
          -p {{ es_port }}:{{ es_port }} -p{{ es_publish_port }}:{{ es_publish_port }} \
-         --ulimit nproc=65535 --ulimit memlock=-1:-1 --ulimit  nofile=165536:165536  \
+         --ulimit nproc=65535 --ulimit memlock=-1:-1 --ulimit nofile=65535:65535  \
          --log-driver json-file --log-opt max-size=500k --log-opt max-file=50 \
-         -e  bootstrap.memory_lock=true -e bootstrap.system_call_filter=false \
-         -e  "ES_JAVA_OPTS=-Xms{{ es_xmx }}m -Xmx{{ es_xmx }}m" \
+         -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
+         -e "discovery.type=single-node" \
          -v {{ es_log_dir }}:{{ es_log_dir }} \
          -v {{ es_tmp_dir }}:/tmp/elasticsearch \
          -v {{ es_config_dir }}/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
          -v {{ es_config_dir }}/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties \
-         -v {{ es_config_dir }}/synonym.txt:/usr/share/elasticsearch/config/analysis/synonym.txt \
-         -v {{ es_config_dir }}/stopword.txt:/usr/share/elasticsearch/config/analysis/stopword.txt \
          -v {{ es_data_dir }}:/usr/share/elasticsearch/data \
          docker.elastic.co/elasticsearch/elasticsearch:{{ es_version }}
