@@ -8,7 +8,7 @@ docker run -u  root  --rm --name=elasticsearch \
          -p {{ es_port }}:{{ es_port }} -p{{ es_publish_port }}:{{ es_publish_port }} \
          --ulimit nproc=65535 --ulimit memlock=-1:-1 --ulimit nofile=65535:65535  \
          --log-driver json-file --log-opt max-size=500k --log-opt max-file=50 \
-         -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
+         -e "ES_JAVA_OPTS=-Xms{{ es_xmx }}m -Xmx{{ es_xmx }}m" \
          -e "discovery.type=single-node" \
          -v {{ es_log_dir }}:{{ es_log_dir }} \
          -v {{ es_tmp_dir }}:/tmp/elasticsearch \
