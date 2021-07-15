@@ -33,4 +33,4 @@
     name: "{{ item.key }}"
     value: "{{ item.value }}"
   with_items:
-    - { key: "vm.max_map_count", value: "262144" }
+    - {key: "vm.max_map_count", value: "262144"}
