@@ -1,4 +1,5 @@
 ---
+
 - name: configuration data
   become: "{{ ansible_user_id }}"
   local_action: |

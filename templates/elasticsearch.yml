@@ -32,8 +32,8 @@ http.port: "{{ es_port|int }}"
 http.max_content_length: 500mb
 
 # Disable HTTP completely:
-#
-#http.enabled: true
+
+# http.enabled: false
 
 xpack.security.enabled: false
 xpack.monitoring.enabled: false

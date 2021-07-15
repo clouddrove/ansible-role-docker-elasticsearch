@@ -1,12 +1,12 @@
 ---
 # version
-es_version: "7.7.1"
+es_version: "7.12.0"
 
 # memory settings
 es_xmx: "{{ ( ansible_memtotal_mb * 0.30 ) | round(0, 'ceil') | int }}"
 
 # user settings
-es_user: new
+es_user: elastic
 es_group: elastic
 # data mounting
 mount_path: /data
