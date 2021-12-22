@@ -4,8 +4,8 @@
   become: "{{ ansible_user_id }}"
   local_action: |
     command echo "
-    env                         ==>  {{ Env }}
-    node.name                   ==>  {{ es_node_name }}
+    env                         ==>  {{ "Env" }}
+    node.name                   ==>  {{ "es_node_name" }}
     "
   register: config_out
   changed_when: false

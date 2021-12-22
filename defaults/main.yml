@@ -1,6 +1,6 @@
 ---
 # version
-es_version: "7.15.0"
+es_version: "7.16.2"
 
 # memory settings
 es_xmx: "{{ ( ansible_memtotal_mb * 0.30 ) | round(0, 'ceil') | int }}"
