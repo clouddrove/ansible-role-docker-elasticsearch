@@ -2,11 +2,13 @@
 
 - name: Configuration data
   become: "{{ ansible_user_id }}"
-  local_action: |
-    ansible.builtin.command echo "
-    env                         ==>  {{ "Env" }}
-    node.name                   ==>  {{ "es_node_name" }}
-    "
+  ansible.builtin.command:
+    cmd: |
+      echo "
+      env                         ==>  {{ "Env" }}
+      node.name                   ==>  {{ "es_node_name" }}
+      "
+  delegate_to: localhost
   register: config_out
   changed_when: false
 
