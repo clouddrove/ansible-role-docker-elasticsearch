@@ -1,16 +1,16 @@
 ---
-- name: restart elasticsearch
-  service:
-    name: elasticsearch
+- name: Restart elasticsearch
+  ansible.builtin.service:
+    name: Elasticsearch
     state: restarted
     enabled: true
 
-- name: reload elasticsearch
-  systemd:
-    name: elasticsearch
+- name: Reload elasticsearch
+  ansible.builtin.systemd:
+    name: Elasticsearch
     state: reloaded
 
-- name: start elasticsearch
-  systemd:
-    name: elasticsearch
+- name: Start elasticsearch
+  ansible.builtin.systemd:
+    name: Elasticsearch
     state: started

@@ -1,24 +1,27 @@
 ---
 
-- name: configuration data
+- name: Configuration data
   become: "{{ ansible_user_id }}"
-  local_action: |
-    command echo "
-    env                         ==>  {{ "Env" }}
-    node.name                   ==>  {{ "es_node_name" }}
-    "
+  ansible.builtin.command:
+    cmd: |
+      echo "
+      env                         ==>  {{ "Env" }}
+      node.name                   ==>  {{ "es_node_name" }}
+      "
+  delegate_to: localhost
   register: config_out
   changed_when: false
 
-- name: print config
-  debug: var=config_out.stdout_lines
+- name: Print config
+  ansible.builtin.debug:
+    var: config_out.stdout_lines
   when: config_out is defined
 
-- name: users elasticsearch
-  import_tasks: users.yml
+- name: Users elasticsearch
+  ansible.builtin.import_tasks: users.yml
 
-- name: configure elasticsearch
-  import_tasks: configure.yml
+- name: Configure elasticsearch
+  ansible.builtin.import_tasks: configure.yml
 
-- name: install docker elasticsearch
-  import_tasks: install.yml
+- name: Install docker elasticsearch
+  ansible.builtin.import_tasks: install.yml

@@ -1,4 +1,11 @@
 ---
+warn_list:
+  - name[casing]
+  - name[missing]
+  - jinja[spacing]
+  - fqcn[action-core]
+  - no-changed-when
 
-skip_list:
-  - deprecated-local-action
+exclude_paths:
+  - molecule/
+  - tests/

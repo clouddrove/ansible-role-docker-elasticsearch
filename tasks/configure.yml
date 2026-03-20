@@ -1,6 +1,6 @@
 ---
-- name: create elasticsearch dirs
-  file:
+- name: Create elasticsearch dirs
+  ansible.builtin.file:
     path: "{{ item|safe|trim }}"
     state: directory
     owner: "{{ es_user }}"
@@ -14,8 +14,8 @@
     - "{{ es_tmp_dir }}"
     - "{{ es_data_dir }}"
 
-- name: create elasticsearch configuration file
-  template:
+- name: Create elasticsearch configuration file
+  ansible.builtin.template:
     dest: "{{ es_config_dir }}/{{ item | basename }}"
     owner: "{{ es_user }}"
     group: "{{ es_group }}"
@@ -28,8 +28,8 @@
     - analysis/stopword.txt
     - analysis/synonym.txt
 
-- name: set vm.max_map_count to 262144 in sysctl
-  sysctl:
+- name: Set vm.max_map_count to 262144 in sysctl
+  ansible.posix.sysctl:
     name: "{{ item.key }}"
     value: "{{ item.value }}"
   with_items:
