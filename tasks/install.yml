@@ -1,29 +1,29 @@
 ---
 
-- name: copy elasticsearch script
-  template:
+- name: Copy elasticsearch script
+  ansible.builtin.template:
      src: "elasticsearch"
      dest: /usr/local/bin/elasticsearch
      mode: 0755
      owner: root
      group: root
 
-- name: copy elasticsearch script
-  template:
+- name: Copy elasticsearch script
+  ansible.builtin.template:
      src: "elasticsearch.service"
      dest: /etc/systemd/system/elasticsearch.service
      mode: 0644
      owner: root
      group: root
 
-- name: restart elasticsearch
-  service:
-     name: elasticsearch
+- name: Restart elasticsearch
+  ansible.builtin.service:
+     name: Elasticsearch
      state: restarted
      enabled: true
 
-- name: wait for elasticsearch to become ready
-  wait_for:
+- name: Wait for elasticsearch to become ready
+  ansible.builtin.wait_for:
      host: "0.0.0.0"
      port: "{{ es_port }}"
      state: started
